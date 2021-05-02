@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    VIEW USER POSTS
+    <br>
+    <form action="ViewUserPosts.php" method="post">
+      <label for="users">Choose a user: </label>
+      <select name="users">
+	<?php
+	  $mysqli = new mysqli("mysql.eecs.ku.edu", "griffinkeeter", "oiPu7koo", "griffinkeeter");
+	  if($mysqli->connect_errno){
+	    printf("Connect failed: %s\n", $mysqli->connect_error);
+	    exit();
+	  }
+	  if($result = $mysqli->query("SELECT user_id FROM Users ORDER BY user_id DESC")){
+	while($row = $result->fetch_assoc()){
+	printf("%s \n", $row["user_id"]);
+	echo "<option value='" . $row["user_id"] . "'>" . $row["user_id"] . "</option>";
+	}
+	  $result->free();
+	  }
+	  
+	?>
+      </select>
+      <input type="submit">
+    </form>
+  </body>
+</html>
